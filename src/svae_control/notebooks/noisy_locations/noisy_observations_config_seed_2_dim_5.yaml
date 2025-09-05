@@ -1,0 +1,66 @@
+data:
+  dataset: 'GPS'
+  obs_shape: [2]  # Observation shape
+  T: 100  # Length of the obs sequences
+  normalise_obs: True
+  normalise_pixels: True
+  train_frac: 0.8
+model:
+  latent_dim: 5
+  encoder:
+    dist_type: 'GaussianNN'
+    backbone:
+      nn_type: 'MLP'
+      hidden_dims: [256, 256]
+    head:
+      nn_type: 'MLP'
+      hidden_dims: [256]
+    optim:
+      lr: 5.0e-4
+      optim_type: 'adam'
+  decoder:
+    dist_type: 'DiagGaussianFixedVarNN'
+    backbone:
+      nn_type: 'MLP'
+      hidden_dims: [256, 256]
+    kwargs: {'var_scale': 1.0}
+    head:
+      nn_type: 'MLP'
+      hidden_dims: [256]
+    optim:
+      lr: 1.0e-3
+      optim_type: 'adam'
+  action_encoder:
+    enc_action_dim: 3
+    backbone:
+      nn_type: 'MLP'
+      hidden_dims: [256, 256]
+    optim:
+      lr: 1.0e-3
+      optim_type: 'adam'
+  prior:
+    optim:
+      lr: 1.0e-3
+      optim_type: 'adam'
+training:
+  num_samples: 32
+  batch_size: 32
+  seed: 2
+  num_iters: 10000
+  beta:
+    beta_schedule: "constant"
+    beta_start: 1.0
+    beta_end: 1.0
+    beta_steps: 5000
+    beta_warmup: 1000
+  mask_size: 30
+eval:
+  eval_every: 100
+  plot_traj_len: false
+  plot_traj_context: false
+  plot_traj_num: false
+  plot_traj_sample: false
+wandb:
+  use_wandb: False
+jit: True
+run_diagnostics: False

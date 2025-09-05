@@ -1,0 +1,31 @@
+[project]
+name = "svae-control"
+version = "0.1.0"
+description = "Default template for PDM package"
+authors = [
+    {name = "Kai Biegun", email = "k.biegun@hotmail.co.uk"},
+]
+dependencies = ["flax>=0.10.1", "wandb>=0.18.7", "matplotlib>=3.9.2", "tensorflow-probability>=0.25.0", "tqdm>=4.67.0", "optax>=0.2.4", "numpy>=1.26.4", "pillow>=11.0.0", "dynamax>=0.1.5", "mypy>=1.13.0", "jupyter>=1.1.1", "types-PyYAML>=6.0.12.20240917", "dacite>=1.8.1"]
+requires-python = "==3.12.*"
+readme = "README.md"
+license = {text = "MIT"}
+
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+
+[project.optional-dependencies]
+cuda = ["jax[cuda12_pip]==0.4.35", "nvidia-cuda-nvcc-cu12"]
+cpu = ["jax[cpu]==0.4.35"]
+
+
+[tool.pdm]
+distribution = true
+
+
+[[tool.pdm.source]]
+name = "jax"
+url = "https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
+verify_ssl = true
+type = "find_links"
