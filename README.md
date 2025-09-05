@@ -7,3 +7,5 @@ pdm install -G cuda
 # if non-cuda machine
 pdm install -G cpu
 ```
+
+See notebooks
